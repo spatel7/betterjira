@@ -1,0 +1,13 @@
+{
+    "name": "Better JIRA",
+    "description": "Open issue links in new tabs",
+    "version": "1.0",
+    "content_scripts": [
+        {
+            "matches": ["https://jira.COMPANY_DOMAIN.com/*"],
+            "js": ["jira.js"],
+            "run_at": "document_start"
+        }
+    ],
+    "manifest_version": 2
+}
