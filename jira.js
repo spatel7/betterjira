@@ -1,35 +1,27 @@
 'use strict';
 
-/**
- * Set the value of COMPANY_DOMAIN to the domain your company uses for 
- * its JIRA app. It should be the same value you chose when updating
- * manifest.json.
- *
- * Ex: const COMPANY_DOMAIN = "googlecorp"
- */
-const COMPANY_DOMAIN = "replacethiswithyourcompanydomain"
-
-const LINK_PREFIX = "/browse/"
-const FULL_LINK_PREFIX = "https://jira." + COMPANY_DOMAIN + ".com/browse/"
+const ORIGIN = window.location.origin;
+const ISSUE_LINK_PREFIX = ORIGIN + "/browse/";
 
 /**
- * Get JIRA issue links that are not configured to open in new tabs
+ * Get JIRA external links and issue links that are not configured yet to
+ * open in new tabs
  */
-function getCandidateIssueLinks() {
+function getCandidateLinks() {
     var links = Array.from(document.getElementsByTagName("a"));
     return links.filter(function(link) {
-        return (link.hasAttribute("href") && (
-            link.getAttribute("href").startsWith(LINK_PREFIX) ||
-            link.getAttribute("href").startsWith(FULL_LINK_PREFIX)
+        return (link.href && (
+            link.href.startsWith(ISSUE_LINK_PREFIX) ||
+            !link.href.startsWith(ORIGIN)
         ) && link.target !== "_blank");
     });
 }
 
 /**
- * Update all JIRA issue links to open in new tabs when clicked
+ * Update all JIRA external links and issue links to open in new tabs
  */
-function configureIssueLinksToOpenInNewTabs() {
-    var issueLinks = getCandidateIssueLinks();
+function configureLinksToOpenInNewTabs() {
+    var issueLinks = getCandidateLinks();
     issueLinks.forEach(function(link) {
         link.target = "_blank";
 
@@ -38,7 +30,7 @@ function configureIssueLinksToOpenInNewTabs() {
     });
 }
 
-const MUTATION_BUFFER = 1000
+const MUTATION_BUFFER = 500;
 var lastMutation = null;
 
 function waitForMutationsToComplete() {
@@ -48,7 +40,7 @@ function waitForMutationsToComplete() {
         setTimeout(waitForMutationsToComplete, remainingBuffer);
     } else {
         lastMutation = null;
-        configureIssueLinksToOpenInNewTabs();
+        configureLinksToOpenInNewTabs();
     }
 }
 

@@ -3,8 +3,7 @@ Chrome extension that updates JIRA issue links to open in new tabs
 
 ### Step 1: Configure extension for your company
 1. Clone this repository
-2. Open up `manifest.json`, search for `COMPANY_DOMAIN`, and replace it with the domain your company uses for JIRA
-3. Open up `jira.js`, search for `COMPANY_DOMAIN`, and set it to be same thing you chose in `manifest.json`
+2. Open up `manifest.json`, search for `https://jira.COMPANY_DOMAIN.com`, and replace `COMPANY_DOMAIN` to match the url you see when you open JIRA in your browser
 
 ### Step 2: Load extension into Chrome
 3. Open Chrome and go to your extensions by typing `chrome://extensions` into the URL

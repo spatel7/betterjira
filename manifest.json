@@ -1,6 +1,6 @@
 {
     "name": "Better JIRA",
-    "description": "Open issue links in new tabs",
+    "description": "Open external links and issue links in new tabs",
     "version": "1.0",
     "content_scripts": [
         {
